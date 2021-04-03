@@ -1,0 +1,200 @@
+Airport Name,Passenger,Population
+Atlanta,53.485,506811
+Los Angeles,42.880,3967000
+Chicago O'Hare,40.872,31899
+Dallas/Fort Worth,35.764,7573136
+Denver,33.575,705576
+New York JFK,31.036,8419000
+San Francisco,27.701,874961
+Seattle,24.962,724305
+Orlando,24.550,280832
+Las Vegas,24.411,634773
+Charlotte,24.181,857425
+Newark,23.140,281054
+Phoenix,22.411,1633000
+Houston Bush,21.897,2310000
+Miami,21.292,454279
+Boston,20.679,684379
+Minneapolis,19.152,420324
+Detroit Metro,18.122,5562285
+Fort Lauderdale,17.936,180124
+Philadelphia,15.989,1579000
+New York LaGuardia,15.392,8419000
+Baltimore,13.231,609032
+Salt Lake City,12.829,197756
+San Diego,12.641,1410000
+Washington Dulles,11.857,7615000
+Washington Reagan,11.576,7615000
+Tampa,10.921,387916
+Chicago Midway,10.064,2710000
+Honolulu,9.893,348985
+Portland,9.790,645291
+Nashville,8.923,692587
+Austin,8.498,950807
+Dallas,8.069,1331000
+St. Louis,7.750,308174
+San Jose,7.676,1028000
+Houston,7.057,2310000
+Raleigh/Durham,6.907,110943
+New Orleans,6.858,390845
+Oakland,6.540,425097
+Sacramento,6.448,500930
+Kansas City,5.748,486404
+Santa Ana,5.150,332794
+Fort Myers,5.039,79927
+San Antonio,5.021,1508000
+Cleveland,4.884,385282
+Indianapolis,4.684,864447
+Pittsburgh,4.675,302205
+San Juan,4.543,335468
+Cincinnati,4.396,301394
+Columbus,4.155,878553
+Kahului,3.776,31336
+Jacksonville,3.472,890467
+West Palm Beach/Palm Beach,3.453,109767
+Milwaukee,3.358,594548
+Hartford,3.318,123088
+Burbank,2.985,103703
+Ontario,2.717,14570000
+Anchorage,2.654,293531
+Albuquerque,2.638,559374
+Omaha,2.450
+Buffalo,2.448
+Charleston,2.375
+Memphis,2.307
+Richmond,2.187
+Reno,2.157
+Oklahoma City,2.132
+Boise,2.054
+Louisville,2.035
+Norfolk,1.987
+Providence,1.965
+Spokane,1.941
+Kona,1.926
+Tucson,1.845
+Grand Rapids,1.784
+Long Beach,1.749
+El Paso,1.738
+Lihue,1.629
+Birmingham,1.511
+Sanford,1.510
+Tulsa,1.502
+Albany,1.495
+Savannah,1.458
+Des Moines,1.421
+Palm Springs,1.307
+Myrtle Beach,1.282
+Rochester,1.276
+Greenville-Spartanburg,1.269
+Syracuse,1.267
+Knoxville,1.236
+Madison,1.153
+St. Petersburg,1.126
+Pensacola,1.098
+Little Rock,1.084
+Greensboro/High Point,1.073
+Sarasota/Bradenton,0.974
+Fresno,0.965
+Fayetteville,0.887
+White Plains,0.863
+Wichita,0.854
+Manchester,0.851
+Dayton,0.842
+Punta Gorda,0.822
+Colorado Springs,0.820
+Valparaiso,0.813
+Asheville,0.810
+Bozeman,0.782
+Islip,0.774
+Harrisburg,0.742
+Lexington,0.703
+Huntsville,0.702
+Burlington,0.686
+Midland/Odessa,0.671
+Cedar Rapids/Iowa City,0.665
+Columbia,0.638
+Panama City,0.621
+Eugene,0.590
+Hilo,0.583
+Springfield,0.581
+Sioux Falls,0.572
+Chattanooga,0.551
+Jackson/Vicksburg,0.548
+Fairbanks,0.545
+Wilmington,0.539
+Medford,0.527
+Atlantic City,0.519
+Lubbock,0.516
+Santa Barbara,0.509
+Key West,0.483
+Bend/Redmond,0.482
+Fargo,0.472
+Billings,0.463
+Trenton,0.461
+Missoula,0.452
+Jackson,0.443
+Pasco/Kennewick/Richland,0.437
+Allentown/Bethlehem/Easton,0.433
+Mission/McAllen/Edinburg,0.413
+Tallahassee,0.412
+South Bend,0.410
+Akron,0.402
+Fort Wayne,0.400
+Baton Rouge,0.395
+Everett,0.389
+Appleton,0.386
+Charlottesville,0.385
+Aguadilla,0.369
+Juneau,0.365
+Roanoke,0.359
+Kalispell,0.356
+Moline,0.353
+Amarillo,0.352
+Rapid City,0.342
+Green Bay,0.339
+Daytona Beach,0.338
+Peoria,0.338
+Harlingen/San Benito,0.333
+Bellingham,0.329
+Augusta,0.328
+Mobile,0.328
+Corpus Christi,0.324
+Shreveport,0.324
+Bismarck/Mandan,0.309
+Aspen,0.307
+Bangor,0.304
+Flint,0.300
+Scranton/Wilkes-Barre,0.287
+Traverse City,0.286
+Gulfport/Biloxi,0.285
+Gainesville,0.270
+San Luis Obispo,0.267
+Newburgh/Poughkeepsie,0.266
+Lafayette,0.264
+Grand Junction,0.249
+Evansville,0.242
+Santa Rosa,0.239
+Melbourne,0.239
+Monterey,0.233
+Charleston/Dunbar,0.225
+Bristol/Johnson City/Kingsport,0.220
+Fayetteville,0.217
+Newport News/Williamsburg,0.210
+Bloomington/Normal,0.208
+Durango,0.195
+Montgomery,0.192
+State College,0.191
+Eagle,0.191
+Rochester,0.182
+Concord,0.179
+Idaho Falls,0.176
+Great Falls,0.174
+Minot,0.163
+Lincoln,0.163
+Lansing,0.162
+Jacksonville/Camp Lejeune,0.162
+Montrose/Delta,0.158
+Elmira/Corning,0.156
+Bethel,0.156
+Latrobe,0.155
+Cancun,0.25
