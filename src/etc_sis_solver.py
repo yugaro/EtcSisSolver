@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 import cvxpy as cp
-from model.etc_sis import ETC_SIS
+from model.etc_sis_model import ETC_SIS
 from utils.utils import achieving_objective
 np.random.seed(0)
 INF = 1e9
@@ -40,7 +40,7 @@ def set_args():
     parser.add_argument('--d_matrix_file', type=str, default='../data/matrix/d.npy')
     parser.add_argument('--barx_matrix_file', type=str, default='../data/matrix/barx.npy')
     parser.add_argument('--pubar', type=float, default=0.0000001)
-    parser.add_argument('--pbar', type=float, default=0.000000105)
+    parser.add_argument('--pbar', type=float, default=0.000000101)
     parser.add_argument('--kbar', type=float, default=2)
     return parser.parse_args()
 
@@ -73,8 +73,6 @@ if __name__ == '__main__':
         # obtain event-triggering gain
         sigmastar, etastar = etc_sis.triggered_parameter_solver_gp(Lstar, Kstar)
 
-        # analyze theta
-        thetastar = etc_sis.analyze_theta(K=Kstar, L=Lstar, G=np.diag(sigmastar), H=np.diag(etastar))
         # save data
         np.save('../data/matrix/L.npy', Lstar)
         np.save('../data/matrix/K.npy', Kstar)

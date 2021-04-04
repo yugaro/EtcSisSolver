@@ -29,6 +29,7 @@ def triggering_gain_constraint(n, p, B, M, W, d, rc, c3, sigma, eta, r, s, xi1, 
 
     # # eta + epsilon <= 1
     gp_const2_t = [eta[i] + epsilon <= 1 for i in range(n)]
+    gp_const2_t += [0.01 <= eta[i] for i in range(n)]
 
     # # s / tildesigma <= c3
     gp_const3_t = [sigma[i] + 1 / xi2[m][i] <=

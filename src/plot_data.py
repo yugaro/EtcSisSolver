@@ -52,5 +52,5 @@ if __name__ == '__main__':
     # plot data
     plot_data_all(args, B, D, L, K, G, H, W, barx, choice=1)
     plot_data_group(args, B, D, L, K, G, H, W, barx)
-    plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=2)
-    plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=2)
+    plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1)
+    plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=1)

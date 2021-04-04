@@ -162,13 +162,13 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
         ax = fig.add_axes((0, 0, 1, 1))
 
         ax.plot(x_com_ave_noinput / community_member_num, linestyle="dotted",
-                lw=7, color='lime', label=r'Zero Control Input $(\mathcal{V}_{%d})$' % (m), zorder=2)
+                lw=7, color='lime', label=r'Zero Control Input $(\mathcal{V}_{%d})$' % (m + 1), zorder=2)
 
         ax.plot(x_com_ave_continuous / community_member_num, linestyle="dashed",
-                lw=7, color='dodgerblue', label=r'Continuous-Time Control $(\mathcal{V}_{%d})$' % (m), zorder=3)
+                lw=7, color='dodgerblue', label=r'Continuous-Time Control $(\mathcal{V}_{%d})$' % (m + 1), zorder=3)
 
         ax.plot(x_com_ave_control / community_member_num, linestyle="solid",
-                lw=7, color='crimson', label=r'Event-Triggered Control $(\mathcal{V}_{%d})$' % (m), zorder=4)
+                lw=7, color='crimson', label=r'Event-Triggered Control $(\mathcal{V}_{%d})$' % (m + 1), zorder=4)
 
         ax.plot(d_table_list.T[m], lw=7, linestyle="dashdot",
                 label=r'Threshold $(\bar{x}_%d = %.2f)$' % (m, barx[m]), color='darkorange', zorder=1)
@@ -176,7 +176,7 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
         # # # plot setting
         ax.set_xlabel(r'$t$', fontsize=60)
         ax.set_ylabel(
-            r'$\frac{1}{|\mathcal{V}_%d|}\sum_{i\in \mathcal{V}_%d} x_i(t)$' % (m, m), fontsize=60)
+            r'$\frac{1}{|\mathcal{V}_%d|}\sum_{i\in \mathcal{V}_%d} x_i(t)$' % (m + 1, m + 1), fontsize=60)
         ax.set_xticks([0, 200000, 400000, 600000, 800000])
         ax.xaxis.set_major_formatter(FixedOrderFormatter(4, useMathText=True))
         ax.xaxis.offsetText.set_fontsize(0)
@@ -202,6 +202,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     x_event[0] = x0
     xk = x0
     In = np.identity(args.node_num)
+    args.Time = int(args.Time / 2)
 
     # define event and objective list
     event = np.zeros([args.Time, args.node_num])
@@ -250,8 +251,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    plt.yticks([0, 0.08, 0.16, 0.24])
-    plt.ylim(0, 0.24)
+    plt.ylim(0, u_transition_event.max())
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
@@ -274,7 +274,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    plt.yticks([0, 0.005, 0.010, 0.015])
+    plt.ylim(0, v_transition_event.max())
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
@@ -349,8 +349,7 @@ def plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    plt.yticks([0, 0.08, 0.16, 0.24])
-    plt.ylim(0, 0.24)
+    plt.ylim(0, u_transition_event.max())
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
