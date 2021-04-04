@@ -70,7 +70,7 @@ class ETC_SIS:
         # create objective func and solve GP (control parameters)
         gp_fc = 1
         for i in range(self.n):
-            gp_fc += self.barK[i][i] * 10000000000000 / tildeK[i][i]
+            gp_fc += self.barK[i][i] * 1000000000000000000 / tildeK[i][i]
             for j in range(self.n):
                 if self.B[i][j] != 0:
                     gp_fc += self.barL[i][j] / tildeL[i][j]

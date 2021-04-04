@@ -8,7 +8,7 @@ epsilon = 1e-15
 def triggering_gain_constant(n, p, B, D, M, W, Lstar, Kstar):
     # define constant
     # # rc = p.T (B.T - D)
-    rc = (B.T - D).dot(p)
+    rc = p.T.dot(B.T - D)
 
     # # c3 = p K* + sum(p L*)
     c3 = np.zeros((M, n))
@@ -29,7 +29,6 @@ def triggering_gain_constraint(n, p, B, M, W, d, rc, c3, sigma, eta, r, s, xi1, 
 
     # # eta + epsilon <= 1
     gp_const2_t = [eta[i] + epsilon <= 1 for i in range(n)]
-    gp_const2_t += [0.01 <= eta[i] for i in range(n)]
 
     # # s / tildesigma <= c3
     gp_const3_t = [sigma[i] + 1 / xi2[m][i] <=

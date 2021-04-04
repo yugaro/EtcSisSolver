@@ -4,7 +4,7 @@ from view.view import plot_data_all
 from view.view import plot_data_group
 from view.view import plot_data_gain
 from view.view import plot_data_compare
-np.random.seed(0)
+np.random.seed(11)
 
 def set_args():
     # parse params
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     barx = np.load(args.barx_matrix_file)
 
     # plot data
-    plot_data_all(args, B, D, L, K, G, H, W, barx, choice=1)
+    plot_data_all(args, B, D, L, K, G, H, W, barx, choice=3)
     plot_data_group(args, B, D, L, K, G, H, W, barx)
-    plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1)
-    plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=1)
+    plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=3)
+    plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=3)

@@ -8,7 +8,7 @@ epsilon = 1e-15
 def control_gain_constant(n, p, B, D, M, W, d, barL, barK):
     # define constant
     # # rc = p.T (B.T - D)
-    rc = (B.T - D).dot(p)
+    rc = p.T.dot(B.T - D)
     # # c1 = p barK + sum(p barL)
     c1 = np.zeros((M, n))
     for m in range(M):

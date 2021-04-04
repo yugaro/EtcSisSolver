@@ -31,8 +31,7 @@ def create_ad_matrix(args, df_iata, df_passenger, df_route):
         (np.nanmax(df_ad_matrix.values - np.nanmin(df_ad_matrix.values)))
     for index, row in df_ad_matrix.iterrows():
         df_ad_matrix.at[index, index] = df_passenger[df_passenger['IATA'] == index]['Population'].values[0] * \
-            args.beta_max * 0.1 / \
-            df_passenger['Population'].values.max()
+            args.beta_max * 0.1 / df_passenger['Population'].values.max()
     return df_ad_matrix
 
 
@@ -42,15 +41,19 @@ def create_rr_matrix(args):
 
 
 def set_obj(args, B):
-    # create SIS network
-    edge_list = [(i, j, B[i][j]) for i in range(args.node_num)
-                 for j in range(args.node_num) if B[i][j] != 0]
+    BB = B.T
+    edge_list = [(i, j, BB[i][j]) for i in range(args.node_num)
+                 for j in range(args.node_num) if BB[i][j] != 0]
     G = nx.Graph()
     G.add_weighted_edges_from(edge_list)
 
     # create community
-    partition = community.best_partition(G, resolution=1)
+    partition = community.best_partition(G, weight='weight', resolution=1.062214671, random_state=21)
     partition = dict(sorted(partition.items()))
+    print(partition)
+    print(list(partition.values()).count(0))
+    print(list(partition.values()).count(1))
+    print(list(partition.values()).count(2))
     # choice target community
     group_list = [[0], [1], [2]]
 
@@ -58,7 +61,7 @@ def set_obj(args, B):
     M = len(group_list)
 
     # define threshold of each node in the target
-    barx = np.array([0.1, 0.09, 0.08])
+    barx = np.array([0.1, 0.06, 0.08])
 
     # define target nodes according to community
     W = np.zeros((M, args.node_num))

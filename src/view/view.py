@@ -4,7 +4,7 @@ import matplotlib as mpl
 from matplotlib import pyplot as plt
 from matplotlib import rc
 from matplotlib.ticker import ScalarFormatter
-np.random.seed(10)
+np.random.seed(11)
 rc('text', usetex=True)
 rc('font', **{'family': "sans-serif"})
 params = {'text.latex.preamble': [r'\usepackage{amsmath}']}
@@ -128,7 +128,7 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
 
     # define event and objective list
     event = np.zeros([args.Time, args.node_num])
-    d_table_list = np.array([barx for i in range(args.Time)])
+    barx_list = np.array([barx for i in range(args.Time)])
     # collect transition data of propotion of infected pepole and triggerring event
     for k in range(args.Time - 1):
         x_noinput[k + 1] = x_noinput[k] + args.h * \
@@ -170,8 +170,8 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
         ax.plot(x_com_ave_control / community_member_num, linestyle="solid",
                 lw=7, color='crimson', label=r'Event-Triggered Control $(\mathcal{V}_{%d})$' % (m + 1), zorder=4)
 
-        ax.plot(d_table_list.T[m], lw=7, linestyle="dashdot",
-                label=r'Threshold $(\bar{x}_%d = %.2f)$' % (m, barx[m]), color='darkorange', zorder=1)
+        ax.plot(barx_list.T[m], lw=7, linestyle="dashdot",
+                label=r'Threshold $(\bar{x}_%d = %.2f)$' % (m + 1, barx[m]), color='darkorange', zorder=1)
 
         # # # plot setting
         ax.set_xlabel(r'$t$', fontsize=60)
@@ -232,7 +232,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
         triggering_tmp = 0
         for k in range(args.Time):
             if event[k][i] == 1:
-                inter_time_events[k][i] = k - triggering_tmp
+                inter_time_events[k][i] = (k - triggering_tmp) * args.h
                 triggering_tmp = k
             else:
                 inter_time_events[k][i] = None
@@ -251,7 +251,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    plt.ylim(0, u_transition_event.max())
+    # plt.ylim(0, u_transition_event.max())
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
@@ -274,7 +274,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    plt.ylim(0, v_transition_event.max())
+    # plt.ylim(0, v_transition_event.max())
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
@@ -349,7 +349,7 @@ def plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    plt.ylim(0, u_transition_event.max())
+    # plt.ylim(0, u_transition_event.max())
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)

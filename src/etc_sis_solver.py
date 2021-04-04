@@ -12,7 +12,7 @@ def ly_param_solver(args, B, D):
     p_v = cp.Variable(args.node_num, pos=True)
     rc_v = cp.Variable(args.node_num)
 
-    ly_cons1 = [rc_v == (B.T - D) @ p_v]
+    ly_cons1 = [rc_v == p_v @ (B.T - D)]
     ly_cons2 = [args.pubar <= p_v[i] for i in range(args.node_num)]
     ly_cons3 = [p_v[i] <= args.pbar for i in range(args.node_num)]
     ly_constraints = ly_cons1 + ly_cons2 + ly_cons3
@@ -72,6 +72,11 @@ if __name__ == '__main__':
 
         # obtain event-triggering gain
         sigmastar, etastar = etc_sis.triggered_parameter_solver_gp(Lstar, Kstar)
+
+        print(Lstar)
+        print(Kstar)
+        print(sigmastar)
+        print(etastar)
 
         # save data
         np.save('../data/matrix/L.npy', Lstar)
