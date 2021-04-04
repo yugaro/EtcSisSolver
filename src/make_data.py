@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # create adjecent matrix
     df_ad_matrix = create_ad_matrix(args, df_iata, df_passenger, df_route)
     df_rr_matrix = create_rr_matrix(args)
-    M, W, d, barx = set_obj(args, df_ad_matrix.values)
+    M, W, d, barx = set_obj(args, df_ad_matrix)
 
     # save data
     df_ad_matrix.to_csv('../data/dataset/ad_matrix.csv')

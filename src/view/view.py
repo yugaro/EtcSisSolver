@@ -64,7 +64,7 @@ def plot_data_all(args, B, D, L, K, G, H, W, barx, choice):
                     xk[i] = x[k][i]
                     event[k + 1][i] = 1
             x[k + 1] = x[k] + args.h * (-(D + K.dot(np.diag(xk))).dot(x[k]) + (
-                In - np.diag(x[k])).dot(B.T - L.dot(np.diag(xk)).T).dot(x[k]))
+                In - np.diag(x[k])).dot(B.T - L.T.dot(np.diag(xk))).dot(x[k]))
 
     # plot data
     fig = plt.figure(figsize=(16, 9.7))
@@ -135,14 +135,14 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
             (-D.dot(x_noinput[k]) +
              (In - np.diag(x_noinput[k])).dot(B.T).dot(x_noinput[k]))
         x_continuous[k + 1] = x_continuous[k] + args.h * (-(D + K.dot(np.diag(x_continuous[k]))).dot(x_continuous[k]) + (
-            In - np.diag(x_continuous[k])).dot(B.T - L.dot(np.diag(x_continuous[k])).T).dot(x_continuous[k]))
+            In - np.diag(x_continuous[k])).dot(B.T - L.T.dot(np.diag(x_continuous[k]))).dot(x_continuous[k]))
         for i in range(args.node_num):
             # # choice 3 is the case of event-triggered controller
             if event_trigger_func(x_control[k][i], xk[i], G[i][i], H[i][i]) == 1:
                 xk[i] = x_control[k][i]
                 event[k + 1][i] = 1
         x_control[k + 1] = x_control[k] + args.h * (-(D + K.dot(np.diag(xk))).dot(x_control[k]) + (
-            In - np.diag(x_control[k])).dot(B.T - L.dot(np.diag(xk)).T).dot(x_control[k]))
+            In - np.diag(x_control[k])).dot(B.T - L.T.dot(np.diag(xk))).dot(x_control[k]))
 
     # compute the average of trajectories in each group
     for m in range(W.shape[0]):
@@ -184,9 +184,9 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
         ax.tick_params(axis='x', labelsize=60)
         ax.set_yticks([0, 0.25, 0.5])
         ax.set_yticklabels([r'$0$', r'$0.25$', r'$0.5$'])
-        ax.set_yticks([0.1], minor=True)
-        ax.set_yticklabels([r'$0.1$'], minor=True)
-        ax.set_ylim(0, 0.58)
+        ax.set_yticks([barx[m]], minor=True)
+        ax.set_yticklabels([r'$%.2f$' % (barx[m])], minor=True)
+        ax.set_ylim(0, 0.70)
         ax.tick_params(axis='y', labelsize=60, which='both')
         ax.legend(loc="upper right", bbox_to_anchor=(
             1.0, 1.0), borderaxespad=0, fontsize=48, ncol=1)
@@ -224,7 +224,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
                 event[k + 1][i] = 1
             v_transition_event[k][i] = L[i] * xk
         x_event[k + 1] = x_event[k] + args.h * (-(D + K.dot(np.diag(xk))).dot(x_event[k]) + (
-            In - np.diag(x_event[k])).dot(B.T - L.dot(np.diag(xk)).T).dot(x_event[k]))
+            In - np.diag(x_event[k])).dot(B.T - L.T.dot(np.diag(xk))).dot(x_event[k]))
         # # # record event-triggered control input
         u_transition_event[k] = K.dot(xk)
 
@@ -321,14 +321,14 @@ def plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=1):
     # collect transition data of propotion of infected pepole and triggerring event
     for k in range(args.Time - 1):
         x_continuous[k + 1] = x_continuous[k] + args.h * (-(D + K.dot(np.diag(x_continuous[k]))).dot(x_continuous[k]) + (
-            In - np.diag(x_continuous[k])).dot(B.T - L.dot(np.diag(x_continuous[k])).T).dot(x_continuous[k]))
+            In - np.diag(x_continuous[k])).dot(B.T - L.T.dot(np.diag(x_continuous[k]))).dot(x_continuous[k]))
         for i in range(args.node_num):
             # # event-triggered control
             if event_trigger_func(x_event[k][i], xk[i], G[i][i], H[i][i]) == 1:
                 xk[i] = x_event[k][i]
                 event[k + 1][i] = 1
         x_event[k + 1] = x_event[k] + args.h * (-(D + K.dot(np.diag(xk))).dot(x_event[k]) + (
-            In - np.diag(x_event[k])).dot(B.T - L.dot(np.diag(xk)).T).dot(x_event[k]))
+            In - np.diag(x_event[k])).dot(B.T - L.T.dot(np.diag(xk))).dot(x_event[k]))
         # # record event-triggered control input
         u_transition_event[k] = K.dot(xk)
         u_transition_continuous[k] = K.dot(x_continuous[k])

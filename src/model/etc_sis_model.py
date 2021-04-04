@@ -77,7 +77,7 @@ class ETC_SIS:
 
         gp_prob_c = cp.Problem(cp.Maximize(1 / gp_fc), gp_consts_c)
         gp_prob_c.solve(gp=True, solver=cp.MOSEK)
-        print("GP status (control parameters):", gp_prob_c.status)
+        print("GP status (control gain):", gp_prob_c.status)
 
         # get value of K and L
         Lstar = self.barL - np.array(tildeL.value)
@@ -113,7 +113,7 @@ class ETC_SIS:
             gp_ft *= (sigma[i]) * (eta[i])
         gp_prob_e = cp.Problem(cp.Maximize(gp_ft), gp_consts_t)
         gp_prob_e.solve(gp=True, solver=cp.MOSEK)
-        print("GP status (event-triggered paramters) :", gp_prob_e.status)
+        print("GP status (event-triggering gain) :", gp_prob_e.status)
 
         # get value of sigma and eta
         sigmastar = np.array(sigma.value)
