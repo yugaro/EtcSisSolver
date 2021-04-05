@@ -1,15 +1,25 @@
 import math
 import numpy as np
+import random
 import matplotlib as mpl
 from matplotlib import pyplot as plt
 from matplotlib import rc
 from matplotlib.ticker import ScalarFormatter
+from palettable.cubehelix import Cubehelix
 np.random.seed(11)
 rc('text', usetex=True)
 rc('font', **{'family': "sans-serif"})
 params = {'text.latex.preamble': [r'\usepackage{amsmath}']}
 mpl.rcParams['axes.xmargin'] = 0
 mpl.rcParams['axes.ymargin'] = 0
+
+palette = Cubehelix.make(n=(55), start=0.5, rotation=-1.5,
+                         max_sat=3,).colors
+for i in range(55):
+    for j in range(3):
+        palette[i][j] /= 255
+palette = palette[:50]
+random.shuffle(palette)
 
 class FixedOrderFormatter(ScalarFormatter):
     def __init__(self, order_of_mag=0, useOffset=True, useMathText=True):
@@ -71,7 +81,7 @@ def plot_data_all(args, B, D, L, K, G, H, W, barx, choice):
     ax1 = fig.add_axes((0, 0, 1, 1))
     cm = plt.cm.get_cmap('jet', args.node_num)
     for i in (range(args.node_num)):
-        ax1.plot(x.T[i], lw=2, color=cm(i))
+        ax1.plot(x.T[i], lw=2, color=palette[i])
     ax1.set_xlabel(r'$t$', fontsize=60)
     ax1.set_ylabel(
         r'$x_i(t)$', fontsize=60)
@@ -85,22 +95,22 @@ def plot_data_all(args, B, D, L, K, G, H, W, barx, choice):
     ax1.tick_params(axis='y', labelsize=60)
     ax1.grid(which='major', alpha=0.8, linestyle='dashed')
 
-    if choice == 3:
-        ax2 = fig.add_axes((0.3, 0.3, 0.65, 0.65))
-        for i in (range(args.node_num)):
-            ax2.plot(np.arange(400000, args.Time),
-                     x.T[i][400000:], lw=2, color=cm(i))
+    # if choice == 3:
+    #     ax2 = fig.add_axes((0.3, 0.3, 0.65, 0.65))
+    #     for i in (range(args.node_num)):
+    #         ax2.plot(np.arange(400000, args.Time),
+    #                  x.T[i][400000:], lw=2, color=palette[i])
 
-        ax2.set_xticks([400000, 600000, 800000])
-        ax2.xaxis.set_major_formatter(FixedOrderFormatter(4, useMathText=True))
-        ax2.xaxis.offsetText.set_fontsize(0)
-        ax2.ticklabel_format(style="sci", axis="x", scilimits=(4, 4))
-        ax2.tick_params(axis='x', labelsize=60)
-        # ax2.set_yscale('log')
-        ax2.set_yticks([0, 0.05, 0.1])
-        ax2.set_yticklabels([r'$0$', r'$0.05$', r'$0.1$'])
-        ax2.tick_params(axis='y', labelsize=60)
-        ax2.grid(which='major', alpha=0.6, linestyle='dotted')
+    #     ax2.set_xticks([400000, 600000, 800000])
+    #     ax2.xaxis.set_major_formatter(FixedOrderFormatter(4, useMathText=True))
+    #     ax2.xaxis.offsetText.set_fontsize(0)
+    #     ax2.ticklabel_format(style="sci", axis="x", scilimits=(4, 4))
+    #     ax2.tick_params(axis='x', labelsize=60)
+    #     # ax2.set_yscale('log')
+    #     ax2.set_yticks([0, 0.05, 0.1])
+    #     ax2.set_yticklabels([r'$0$', r'$0.05$', r'$0.1$'])
+    #     ax2.tick_params(axis='y', labelsize=60)
+    #     ax2.grid(which='major', alpha=0.6, linestyle='dotted')
 
     if choice == 1:
         fig.savefig("../image/x_traj_zero_all.pdf",
@@ -125,10 +135,10 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
     x_control[0] = x0
     xk = x0
     In = np.identity(args.node_num)
-
     # define event and objective list
     event = np.zeros([args.Time, args.node_num])
     barx_list = np.array([barx for i in range(args.Time)])
+
     # collect transition data of propotion of infected pepole and triggerring event
     for k in range(args.Time - 1):
         x_noinput[k + 1] = x_noinput[k] + args.h * \
@@ -160,16 +170,12 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
 
         fig = plt.figure(figsize=(16, 9.7))
         ax = fig.add_axes((0, 0, 1, 1))
-
         ax.plot(x_com_ave_noinput / community_member_num, linestyle="dotted",
                 lw=7, color='lime', label=r'Zero Control Input $(\mathcal{V}_{%d})$' % (m + 1), zorder=2)
-
         ax.plot(x_com_ave_continuous / community_member_num, linestyle="dashed",
                 lw=7, color='dodgerblue', label=r'Continuous-Time Control $(\mathcal{V}_{%d})$' % (m + 1), zorder=3)
-
         ax.plot(x_com_ave_control / community_member_num, linestyle="solid",
                 lw=7, color='crimson', label=r'Event-Triggered Control $(\mathcal{V}_{%d})$' % (m + 1), zorder=4)
-
         ax.plot(barx_list.T[m], lw=7, linestyle="dashdot",
                 label=r'Threshold $(\bar{x}_%d = %.2f)$' % (m + 1, barx[m]), color='darkorange', zorder=1)
 
@@ -191,8 +197,9 @@ def plot_data_group(args, B, D, L, K, G, H, W, barx):
         ax.legend(loc="upper right", bbox_to_anchor=(
             1.0, 1.0), borderaxespad=0, fontsize=48, ncol=1)
         ax.grid(which='major', alpha=0.8, linestyle='dashed')
-        fig.savefig("../image/x_traj_group{}.pdf".format(m + 1),
-                    bbox_inches="tight", dpi=300)
+        if m != 1:
+            fig.savefig("../image/x_traj_group{}.pdf".format(m + 1),
+                        bbox_inches="tight", dpi=300)
         plt.close()
 
 
@@ -222,7 +229,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
             if event_trigger_func(x_event[k][i], xk[i], G[i][i], H[i][i]) == 1:
                 xk[i] = x_event[k][i]
                 event[k + 1][i] = 1
-            v_transition_event[k][i] = L[i] * xk
+            v_transition_event[k][i] = L.T[i] * xk
         x_event[k + 1] = x_event[k] + args.h * (-(D + K.dot(np.diag(xk))).dot(x_event[k]) + (
             In - np.diag(x_event[k])).dot(B.T - L.T.dot(np.diag(xk))).dot(x_event[k]))
         # # # record event-triggered control input
@@ -243,7 +250,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     for i in range(args.node_num):
         if W[group_part - 1][i] == 1:
             ax.plot(u_transition_event.T[i],
-                    lw=4, color=cm(i), alpha=1)
+                    lw=4, color=palette[i], alpha=1)
     plt.xlabel(r'$t$', fontsize=60)
     plt.ylabel(
         r'$u_i(t)$', fontsize=60)
@@ -251,7 +258,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    # plt.ylim(0, u_transition_event.max())
+    plt.yticks([0, 0.05, 0.1, 0.15, 0.20, 0.25])
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
@@ -266,7 +273,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     for i in range(args.node_num):
         if W[group_part - 1][i] == 1:
             ax.plot(v_transition_event.T[i][v_argmax[i]],
-                    lw=4, color=cm(i), alpha=1)
+                    lw=4, color=palette[i], alpha=1)
     plt.xlabel(r'$t$', fontsize=60)
     plt.ylabel(
         r'$v_{ij}(t)$', fontsize=60)
@@ -274,7 +281,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.xaxis.offsetText.set_fontsize(0)
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
-    # plt.ylim(0, v_transition_event.max())
+    plt.yticks([0, 0.003, 0.006, 0.009, 0.012, 0.015])
     ax.yaxis.offsetText.set_fontsize(60)
     ax.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.setp(ax.get_yticklabels(), fontsize=60)
@@ -287,7 +294,8 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     fig, ax = plt.subplots(figsize=(16, 9.7))
     for i in (range(args.node_num)):
         if W[group_part - 1][i] == 1:
-            ax.scatter(np.arange(args.Time), inter_time_events.T[i], color=cm(i), s=100, alpha=1)
+            ax.scatter(np.arange(args.Time),
+                       inter_time_events.T[i], color=palette[i], s=100, alpha=1)
     plt.xlabel(r'$t$', fontsize=60)
     plt.ylabel(
         r'$t_{\ell + 1}^i - t_\ell^i$', fontsize=60)
@@ -296,6 +304,7 @@ def plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1):
     ax.ticklabel_format(style='sci', axis='x', scilimits=(4, 4))
     plt.setp(ax.get_xticklabels(), fontsize=60)
     ax.set_yscale('log')
+    plt.ylim(0.8, 40)
     ax.tick_params(axis='y', labelsize=60)
     plt.tight_layout()
     plt.grid()

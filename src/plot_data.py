@@ -3,7 +3,6 @@ import numpy as np
 from view.view import plot_data_all
 from view.view import plot_data_group
 from view.view import plot_data_gain
-from view.view import plot_data_compare
 np.random.seed(11)
 
 def set_args():
@@ -53,4 +52,3 @@ if __name__ == '__main__':
     plot_data_all(args, B, D, L, K, G, H, W, barx, choice=3)
     plot_data_group(args, B, D, L, K, G, H, W, barx)
     plot_data_gain(args, B, D, L, K, G, H, W, barx, group_part=1)
-    plot_data_compare(args, B, D, L, K, G, H, W, barx, group_part=1)
