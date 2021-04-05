@@ -8,7 +8,7 @@ epsilon = 1e-15
 def triggering_gain_constant(n, p, B, D, M, W, Lstar, Kstar):
     # define constant
     # # rc = p.T (B.T - D)
-    rc = (B.T - D).dot(p)
+    rc = p.T.dot(B.T - D)
 
     # # c3 = p K* + sum(p L*)
     c3 = np.zeros((M, n))
