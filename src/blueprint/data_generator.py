@@ -5,7 +5,7 @@ import networkx as nx
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 np.random.seed(0)
-colors = ["mediumblue", "brown", "forestgreen"]
+colors = ["deepskyblue", "firebrick", "lightgreen"]
 cmap = ListedColormap(colors, name="custom")
 
 
@@ -74,15 +74,14 @@ def set_obj(args, Ad_matrix):
                 d[m] += barx[m]
 
     # define node size
-    eigv_cent = nx.eigenvector_centrality_numpy(G)
-    node_size = np.array([(size ** 4) for size in list(eigv_cent.values())]) * 20000000
-
+    # eigv_cent = nx.eigenvector_centrality_numpy(G)
+    # node_size = np.array([(size ** 4) for size in list(eigv_cent.values())]) * 20000000
     # define node color
     node_color = [partition[i] for i in G.nodes()]
 
     # define edge width
-    width = np.array([d['weight'] for (u, v, d) in G.edges(data=True)])
-    width_std = 14 * (((width - min(width)) / (max(width) - min(width)))) + 0.5
+    # width = np.array([d['weight'] for (u, v, d) in G.edges(data=True)])
+    # width_std = 14 * (((width - min(width)) / (max(width) - min(width)))) + 0.5
 
     # define label name
     node_labels = {i: key for i, key in zip(
@@ -92,14 +91,16 @@ def set_obj(args, Ad_matrix):
     fig = plt.figure(figsize=(40, 40))
     ax = fig.add_axes((0, 0, 1, 1))
     pos = nx.nx_agraph.graphviz_layout(G, prog="sfdp")
-
+    # pos = nx.spring_layout(G)
     # set drawing nodes
     nx.draw_networkx_nodes(
         G,
         pos,
-        node_size=node_size,
+        node_size=20000,
         node_color=node_color,
-        cmap=cmap
+        cmap=cmap,
+        edgecolors='black',
+        linewidths=10
     )
 
     # set drawing labels
@@ -114,7 +115,7 @@ def set_obj(args, Ad_matrix):
     nx.draw_networkx_edges(
         G,
         pos,
-        width=width_std
+        # width=width_std
     )
 
     plt.axes(ax).set_axis_off()
