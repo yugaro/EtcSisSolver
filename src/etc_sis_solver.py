@@ -41,7 +41,7 @@ def set_args():
     parser.add_argument('--barx_matrix_file', type=str, default='../data/matrix/barx.npy')
     parser.add_argument('--pubar', type=float, default=0.0000001)
     parser.add_argument('--pbar', type=float, default=0.000000101)
-    parser.add_argument('--kbar', type=float, default=0.7)
+    parser.add_argument('--kbar', type=float, default=2)
     return parser.parse_args()
 
 if __name__ == '__main__':
