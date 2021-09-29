@@ -48,7 +48,7 @@ class ETC_SIS:
 
         # solve program of theorem 1 and caluculate theta*
         prob_theta = cp.Problem(cp.Maximize(theta), constranit_theta)
-        prob_theta.solve(solver=cp.MOSEK)
+        prob_theta.solve(solver=cp.CVXOPT)
 
         return prob_theta.value
 
@@ -76,7 +76,7 @@ class ETC_SIS:
                     gp_fc += self.barL[i][j] / tildeL[i][j]
 
         gp_prob_c = cp.Problem(cp.Maximize(1 / gp_fc), gp_consts_c)
-        gp_prob_c.solve(gp=True, solver=cp.MOSEK)
+        gp_prob_c.solve(gp=True)
         print("GP status (control gain):", gp_prob_c.status)
 
         # get value of K and L
@@ -112,7 +112,7 @@ class ETC_SIS:
         for i in range(self.n):
             gp_ft *= (sigma[i]) * (eta[i])
         gp_prob_e = cp.Problem(cp.Maximize(gp_ft), gp_consts_t)
-        gp_prob_e.solve(gp=True, solver=cp.MOSEK)
+        gp_prob_e.solve(gp=True)
         print("GP status (event-triggering gain) :", gp_prob_e.status)
 
         # get value of sigma and eta

@@ -22,7 +22,7 @@ def ly_param_solver(args, B, D):
         f_ly += rc_v[i]
 
     prob_lyapunov = cp.Problem(cp.Minimize(f_ly), ly_constraints)
-    prob_lyapunov.solve(solver=cp.MOSEK)
+    prob_lyapunov.solve(solver=cp.CVXOPT)
 
     p = np.array(p_v.value)
     p = p / np.linalg.norm(p)
